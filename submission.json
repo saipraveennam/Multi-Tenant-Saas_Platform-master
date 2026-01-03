@@ -1,0 +1,74 @@
+{
+  "projectName": "Multi-Tenant SaaS Platform with Project & Task Management",
+  "repositoryOwner": "Amrutha Immidisetti",
+  "description": "A fully dockerized multi-tenant SaaS application with authentication, role-based access control, project and task management, and strict tenant-level data isolation.",
+  "dockerCommand": "docker-compose up -d",
+  "services": {
+    "database": {
+      "type": "PostgreSQL",
+      "port": 5432
+    },
+    "backend": {
+      "type": "Node.js + Express",
+      "port": 5000,
+      "healthEndpoint": "/api/health"
+    },
+    "frontend": {
+      "type": "React + Vite",
+      "port": 3000
+    }
+  },
+  "testCredentials": {
+    "tenants": [
+      {
+        "organizationName": "Acme Technologies",
+        "subdomain": "acme",
+        "tenantAdmins": [
+          {
+            "email": "admin@acme.com",
+            "password": "Admin@123",
+            "fullName": "Acme Admin",
+            "role": "tenant_admin"
+          },
+          {
+            "email": "manager@acme.com",
+            "password": "Admin@123",
+            "fullName": "Operations Manager",
+            "role": "tenant_admin"
+          }
+        ],
+        "users": [
+          {
+            "email": "user1@acme.com",
+            "password": "User@123",
+            "fullName": "John Doe",
+            "role": "user"
+          },
+          {
+            "email": "user2@acme.com",
+            "password": "User@123",
+            "fullName": "Jane Smith",
+            "role": "user"
+          },
+          {
+            "email": "qa@acme.com",
+            "password": "Test@123",
+            "fullName": "QA Tester",
+            "role": "user"
+          }
+        ],
+        "projects": [
+          {
+            "name": "Multi-Tenant SaaS Platform",
+            "description": "Core SaaS platform with tenant isolation, authentication, and role-based access control."
+          },
+          {
+            "name": "Analytics Dashboard",
+            "description": "Real-time analytics dashboard for monitoring user activity, system performance, and tenant-level metrics."
+          }
+        ]
+      }
+    ]
+  },
+  "notes": "This platform does not implement a global super admin. Tenant admins manage all tenant-level operations. All credentials are created automatically through seed scripts during docker-compose startup."
+}
